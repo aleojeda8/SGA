@@ -112,22 +112,30 @@
 
 // mostrarUsuario();
 
-function obtenerUsuario(){
-    return new Promise(resolve => {
-        setTimeout(() => {
-            resolve({ 
-                id: 1,
-                nombre: "Juan",
-                edad: 30
-            });
-        }, 3000);
-    });
+// function obtenerUsuario(){
+//     return new Promise(resolve => {
+//         setTimeout(() => {
+//             resolve({ 
+//                 id: 1,
+//                 nombre: "Juan",
+//                 edad: 30
+//             });
+//         }, 3000);
+//     });
+// }
+
+// async function mostrarUsuario(){
+//     console.log("Cargando usuario...");
+//     const usuario = await obtenerUsuario();
+//     console.log(usuario);
+// }
+
+// mostrarUsuario();
+
+async function obtenerDatos(){
+    const response = await fetch("https://jsonplaceholder.typicode.com/users");
+    const data = await response.json();
+    console.log(data);
 }
 
-async function mostrarUsuario(){
-    console.log("Cargando usuario...");
-    const usuario = await obtenerUsuario();
-    console.log(usuario);
-}
-
-mostrarUsuario();
+obtenerDatos();
