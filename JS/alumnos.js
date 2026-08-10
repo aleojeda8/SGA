@@ -97,9 +97,15 @@ async function obtenerAlumnos(){
 function mostrarAlumno(alumnos){
     // console.log(alumnos);
     // console.log(alumnos[0]);
-    for (const alumno of alumnos) {
-        console.log(alumno.id, alumno.name);
-    }
+    // for (const alumno of alumnos) {
+    //     console.log(alumno.id, alumno.name);
+    // }
+    console.log(typeof alumnos);
+    localStorage.setItem("alumnos",JSON.stringify(alumnos));
+    const datos = localStorage.getItem("alumnos");
+    console.log(datos);
+    const alumnosParseados = JSON.parse(datos);
+    console.table(alumnosParseados);
 }
 
 async function iniciar(){
@@ -120,9 +126,11 @@ async function obtenerPosts(){
 }
 
 function mostrarPosts(posts){
-    for (const post of posts.slice(0, 5)){
-        console.log(post.id, post.title, post.userId);
-    }
+    // for (const post of posts.slice(0, 5)){
+    //     console.log(post.id, post.title, post.userId);
+    // }
+    console.log(typeof posts);
+    localStorage.setItem("posts",JSON.stringify(posts));
 }
 
 async function iniciarPosts(){
@@ -142,6 +150,8 @@ function mostrarComentarios(comentarios){
     for (const comentario of comentarios.slice(0, 5)){
         console.log(comentario.id, comentario.postId, comentario.name);
     }
+    console.log(typeof comentarios);
+    localStorage.setItem("comentarios",JSON.stringify(comentarios));
 }
 
 async function iniciaComentarios(){
