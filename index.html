@@ -1,14 +1,30 @@
-!<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
     <head>
         <title></title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- <link href="css/style.css" rel="stylesheet"> -->
-        <script src="JS/alumnos.js"></script>
+        <script src="JS/alumnos.js" defer></script>
     </head>
     <body>
         <h1>Sistema de Gestion Academica</h1>
-        <p>Proyecto de Programacion IV</p>
+        <h2>Alta de Alumnos</h2>
+        <form id="formAlumno">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre"> <br><br>
+
+            <label for="carrera">Carrera:</label>
+            <input type="text" id="carrera"> <br><br>
+
+            <label for="correo">Correo:</label>
+            <input type="email" id="correo"> <br><br>
+
+            <button type="submit">Guardar Alumno</button>
+            <hr>
+            <h2>Listado de Alumnos</h2>
+            <ul id="listadoAlumnos"></ul>
+
+        </form>
     </body>
 </html>
