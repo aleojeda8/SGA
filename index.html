@@ -4,27 +4,48 @@
         <title></title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- <link href="css/style.css" rel="stylesheet"> -->
+        <link href="CSS/styles.css" rel="stylesheet">
         <script src="JS/alumnos.js" defer></script>
     </head>
     <body>
-        <h1>Sistema de Gestion Academica</h1>
-        <h2>Alta de Alumnos</h2>
-        <form id="formAlumno">
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre"> <br><br>
+        <header>
+            <h1>Sistema de Gestion Academica</h1>
+        </header>
+        <main>
+            <section class="formulario">
+                <h2>Alta de Alumnos</h2>
+                <form id="formAlumno">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre"> <br><br>
 
-            <label for="carrera">Carrera:</label>
-            <input type="text" id="carrera"> <br><br>
+                    <label for="carrera">Carrera:</label>
+                    <input type="text" id="carrera"> <br><br>
 
-            <label for="correo">Correo:</label>
-            <input type="email" id="correo"> <br><br>
+                    <label for="correo">Correo:</label>
+                    <input type="email" id="correo"> <br><br>
 
-            <button type="submit">Guardar Alumno</button>
-            <hr>
-            <h2>Listado de Alumnos</h2>
-            <ul id="listadoAlumnos"></ul>
-
-        </form>
+                    <button type="submit">Guardar Alumno</button>
+                </form>
+            </section>
+            <section class="alumnos">
+                <p id="mensaje"></p>
+                <hr>
+                <h2>Listado de Alumnos</h2>
+                <p id="cantidadAlumnos"></p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Carrera</th>
+                            <th>Correo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listadoAlumnos">
+                    </tbody>
+                </table>
+            </section> 
+        </main>
     </body>
 </html>
