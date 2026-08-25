@@ -1,51 +1,39 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <title></title>
+        <title>SGA</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="CSS/styles.css" rel="stylesheet">
-        <script src="JS/alumnos.js" defer></script>
     </head>
     <body>
         <header>
-            <h1>Sistema de Gestion Academica</h1>
+            <nav>
+                <a href="index.html">Inicio</a>
+                <a href="alumnos.html">Alumnos</a>
+                <a href="docentes.html">Docentes</a>
+            </nav>
         </header>
-        <main>
-            <section class="formulario">
-                <h2>Alta de Alumnos</h2>
-                <form id="formAlumno">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre"> <br><br>
-
-                    <label for="carrera">Carrera:</label>
-                    <input type="text" id="carrera"> <br><br>
-
-                    <label for="correo">Correo:</label>
-                    <input type="email" id="correo"> <br><br>
-
-                    <button type="submit">Guardar Alumno</button>
-                </form>
+        <main class="inicio">
+            <h1>Sistema de Gestion Academica</h1>
+            <p>Bienvenidos al sistema de gestion academica</p>
+            <section class="modulos">
+                <a href="alumnos.html" class="tarjeta">
+                    <i class="fa-solid fa-users"></i>
+                    <h2>Alumnos</h2>
+                    <p>Gestionar alumnos</p>
+                </a>
+                <a href="docentes.html" class="tarjeta">
+                    <i class="fa-solid fa-chalboard-user"></i>
+                    <h2>Docentes</h2>
+                    <p>Gestionar docentes</p>
+                </a>
+                <div class="tarjeta tarjeta-deshabltada">
+                    <i class="fa-solid fa-book"></i>
+                    <h2>Materias</h2>
+                    <p>Proximamente</p>
+                </div>
             </section>
-            <section class="alumnos">
-                <p id="mensaje"></p>
-                <hr>
-                <h2>Listado de Alumnos</h2>
-                <p id="cantidadAlumnos"></p>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Carrera</th>
-                            <th>Correo</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="listadoAlumnos">
-                    </tbody>
-                </table>
-            </section> 
         </main>
     </body>
 </html>

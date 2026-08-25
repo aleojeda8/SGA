@@ -19,6 +19,29 @@ header {
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
+nav {
+    max-width: 1100px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 18px 20px;
+    transition: background-color 0.2s;
+}
+
+nav a:hover{
+    background-color: #223050;
+}
+
+nav a.active{
+    background-color: #1e293b;
+}
+
 header h1 {
     margin: 0;
     letter-spacing: 0.5px;
@@ -27,8 +50,48 @@ header h1 {
 main {
     width: 90%;
     max-width: 800px;
-    margin: 30px auto;
+    margin: 40px auto;
+    padding: 0 20px;
 }
+
+h1 {
+    margin-bottom:  30px;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+.formulario-container {
+    background-color: #1f2937;
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.campo {
+    flex-direction: column;
+    gap: 6px;
+}
+
+.campo label {
+    font-weight: bold;
+}
+
+.campo input {
+    padding: 10px;
+    border-radius: 6px; 
+    border: 1 solid #ccc;
+    font-size: 16px;
+}
+
+.campo input:focus {
+    outline: none;
+    border-color: #1f2937;
+    box-shadow: 0 0 0 2px #1f2937;
+}
+
 
 section {
     background-color: #1f2937;
@@ -72,12 +135,22 @@ button {
     border-radius: 6px;
     cursor: pointer;
     font-weight: 600;
+    background-color: #223050;
+    color: white;
+    font-size: 15px;
     transition: transform 0.15s ease, opacity 0.15s ease;
 }
 
 button:hover {
     transform: translateY(-1px);
     opacity: 0.9;
+}
+
+.lista-container {
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px #223050;
 }
 
 form button {
@@ -147,8 +220,17 @@ tr:hover td {
     z-index: 1000;
 }
 
-.oculto{
+.mensaje {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 10px;
+    font-weight:  bold;
+    background-color: #e2e8f0;
+    color: white;
     display: none;
+    z-index: 1000;
 }
 
 .mje-error{
@@ -162,4 +244,51 @@ tr:hover td {
     color: #991b1b;
     box-shadow: 0 4px 10px rgb(0,0,0,0.15);
     z-index: 1000;
+}
+
+.inicio {
+    text-align: center;
+    max-width: 40px;
+}
+
+.inicio > p {
+    margin-bottom: 40px;
+}
+.modulos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px 1fr));
+    gap: 25;
+}
+
+.tarjeta {
+    display: block;
+    text-decoration: none;
+    color: #166534;
+    background-color: white;
+    padding: 35px 25;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: transform 0.2, box-shadow 0.2s;
+}
+.tarjeta:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+}
+
+.tarjeta h2 {
+    margin: 10px 0;
+}
+
+.tarjeta p {
+    color: #666;
+}
+
+.tarjeta-deshabiitada {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.tarjeta-deshabiitada:hover {
+    transform: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
