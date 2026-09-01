@@ -33,6 +33,9 @@ Content-Type: application/json
     "carrera": "H"
 }
 
+###
+DELETE http://localhost:3000/alumnos/1
+
 ### docentes
 GET http://localhost:3000/docentes
 
@@ -68,3 +71,6 @@ Content-Type: application/json
     "nombre": "ale",
     "especialidad": "H"
 }
+
+###
+DELETE http://localhost:3000/docentes/1

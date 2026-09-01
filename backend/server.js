@@ -1,8 +1,13 @@
 const express = require("express");
 const app = express();
-app.use(express.json())
+app.use(express.json());
+const alumnosRoutes = require("./routes/alumnos.routes");
+const docentesRoutes = require("./routes/docentes.routes")
+app.use("/alumnos", alumnosRoutes);
+app.use("/docentes", docentesRoutes);
 
-const alumnos = [
+
+let alumnos = [
     {
     id: 1,
     nombre: "ana",
@@ -40,7 +45,7 @@ const alumnos = [
     }
 ]
 
-const docentes = [
+let docentes = [
     {
     id: 1,
     nombre: "ana",
@@ -78,57 +83,14 @@ const docentes = [
     }
 ]
 
-app.get("/alumnos", (req, res) => {
-    res.json(alumnos)
-});
+///Creo un middleware
+// app.use((req, res, next) => {
+//     console.log("Se ha recibido una peticion");
+//     console.log(req.method);
+//     console.log(req.url);
+//     next();
+// });
 
-app.get("/alumnos/:id", (req, res) => {
-    const id = Number(req.params.id);
-    const alumno = alumnos.find(a => a.id === id)
-    res.json(alumno);
-})
-
-app.post("/alumnos", (req, res) => {
-    const alumno = req.body;
-    alumnos.push(alumno);
-    res.json({mensaje: "Alumno registrado correctamente"});
-})
-
-app.put("/alumnos/:id", (req, res) => {
-    const id = Number(req.params.id);
-    const alumno = alumnos.find(alumno => alumno.id === id);
-    // alumno.id = req.body.id;
-    alumno.nombre = req.body.nombre;
-    alumno.carrera = req.body.carrera;
-    res.json({mensaje:"Alumno actualizado correctamente"});
-})
-
-// Docentes
-
-app.get("/docentes", (req, res) => {
-    res.json(docentes)
-});
-
-app.get("/docentes/:id", (req, res) => {
-    const id = Number(req.params.id);
-    const docente = docentes.find(a => a.id === id)
-    res.json(docente);
-})
-
-app.post("/docentes", (req, res) => {
-    const docente = req.body;
-    docentes.push(docente);
-    res.json({mensaje: "Docente registrado correctamente"});
-})
-
-app.put("/docentes/:id", (req, res) => {
-    const id = Number(req.params.id);
-    const docente = docentes.find(docente => docente.id === id);
-    // alumno.id = req.body.id;
-    docente.nombre = req.body.nombre;
-    docente.especialidad = req.body.especialidad;
-    res.json({mensaje:"Docente actualizado correctamente"});
-})
 
 app.listen(3000, () =>  {
     console.log("Servidor funcionando en el puerto 3000");
