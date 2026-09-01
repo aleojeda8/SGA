@@ -3,6 +3,9 @@ const listaAlumnos = document.querySelector("#listadoAlumnos");
 const mensaje = document.querySelector("#mensaje");
 let alumnoEditadoId = null;
 let alumnoEditar = null;
+const btnCancelar = document.querySelector("#btn-cancelar");
+btnCancelar.style.display = "none";
+const btnGuardar = document.querySelector("#btnGuardar")
 
 formulario.addEventListener("submit", function (event){
     event.preventDefault();
@@ -41,9 +44,6 @@ formulario.addEventListener("submit", function (event){
 
     }else{
         const alumno = alumnos.find(alumno => alumno.id === alumnoEditadoId)
-        alumno.nombre = nombre;
-        alumno.carrera = carrera;
-        alumno.correo = correo;
         
         const datosActuales = {
             nombre: nombre,
@@ -53,12 +53,16 @@ formulario.addEventListener("submit", function (event){
 
         if(datosActuales.nombre === alumnoEditar.nombre && datosActuales.carrera === alumnoEditar.carrera 
             && datosActuales.correo === alumnoEditar.correo){
-                mostrarMensaje("No se realizaron cambios", "mje-error");
+                mostrarMensaje("No se realizaron cambios", "mje-adv");
                 return 
         }
+        alumno.nombre = nombre;
+        alumno.carrera = carrera;
+        alumno.correo = correo;
+        
         alumnoEditadoId = null;
         alumnoEditar = null;
-        formulario.querySelector("button").textContent ="Guardar Alumno";
+        btnGuardar.textContent ="Guardar Alumno";
 
         mostrarMensaje("Alumno Actualizado Correctamente", "mje-exito");
     }
@@ -108,7 +112,7 @@ function eiminarAlumno(id) {
         alumno => alumno.id !== id
     );
 
-    localStorage.setItem("alumnos", JSON.stringify(alumnosActuaizados))
+    guardarDatos("alumnos", alumnosActuaizados);
     mostrarAlumnos(alumnosActuaizados);
     mostrarMensaje("Alumno Eliminado Correctamente","mje-exito");
 }
@@ -137,8 +141,22 @@ function editarAlumno(id){
         correo: alumno.correo
     }
     alumnoEditadoId = id;
-    formulario.querySelector("button").textContent ="Actualizar Alumno";
+    btnCancelar.style.display = "inline-block";
+
+    btnGuardar.textContent ="Actualizar Alumno";
+    document.querySelector("#nombre").focus();
 }
+
+function cancelarEdicion(){
+    formulario.reset();
+    alumnoEditadoId = null;
+    alumnoEditar = null;
+    btnGuardar.textContent = "Guardar Alumno";
+    btnCancelar.style.display = "none";
+    document.querySelector("#nombre").focus();
+}
+
+btnCancelar.addEventListener("click", cancelarEdicion);
 
 const alumnos = obtenerAlumnos();
 mostrarAlumnos(alumnos);

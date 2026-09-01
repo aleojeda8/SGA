@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>SGA - Docentes</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="../CSS/styles.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+        <script src="../JS/ui.js" defer></script>
+        <script src="../JS/storage.js" defer></script>
+        <script src="../JS/docentes.js" defer></script>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <a href="index.html">Inicio</a>
+                <a href="alumnos.html">Alumnos</a>
+                <a href="docentes.html" class="activo">Docentes</a>
+            </nav>
+        </header>
+        <main>
+            <h1>Gestion de Docentes</h1>
+            <section class="formulario-container">
+                <h2>Alta de Docentes</h2>
+                <form id="formulario">
+                    <div class="campo">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre">
+                    </div>
+                    <div class="campo">
+                        <label for="especialidad">Especialidad:</label>
+                        <input type="text" id="especialidad">
+                    </div>
+                    <div class="campo">
+                        <label for="correo">Correo:</label>
+                        <input type="text" id="correo">
+                    </div>
+                    <div class="acciones-form">
+                        <button type="submit" id="btnGuardar">Guardar Docente</button>
+                        <button type="button" id="btn-cancelar">Cancelar</button>
+                    </div>
+                </form>
+            </section>
+            <section class="docentes">
+                <hr>
+                <h2>Listado de Docentes</h2>
+                <!-- <p id="cantidadDocentes"></p> -->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Especialidad</th>
+                            <th>Correo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listadoDocentes">
+                    </tbody>
+                </table>
+            </section>
+            <div id="mensaje" class="mensaje"></div>
+        </main>
+    </body>
+</html>

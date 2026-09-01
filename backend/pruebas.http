@@ -1,0 +1,70 @@
+GET http://localhost:3000/alumnos
+
+###
+GET http://localhost:3000/alumnos/1
+
+###
+POST http://localhost:3000/alumnos
+Content-Type: application/json
+
+{
+    "id": 25,
+    "nombre": "juan",
+    "carrera": "programacion"
+}
+
+###
+POST http://localhost:3000/alumnos
+Content-Type: application/json
+
+{
+    "id": 99,
+    "nombre": "elnahue",
+    "carrera": "programacion IV"
+}
+
+###
+PUT http://localhost:3000/alumnos/1
+Content-Type: application/json
+
+{
+    "id": 100,
+    "nombre": "ale",
+    "carrera": "H"
+}
+
+### docentes
+GET http://localhost:3000/docentes
+
+###
+GET http://localhost:3000/docentes/98
+
+###
+POST http://localhost:3000/docentes
+Content-Type: application/json
+
+{
+    "id": 25,
+    "nombre": "juan",
+    "especialidad": "matematica"
+}
+
+###
+POST http://localhost:3000/docentes
+Content-Type: application/json
+
+{
+    "id": 99,
+    "nombre": "eljuanka",
+    "especialidad": "biologia"
+}
+
+###
+PUT http://localhost:3000/docentes/1
+Content-Type: application/json
+
+{
+    "id": 100,
+    "nombre": "ale",
+    "especialidad": "H"
+}
