@@ -1,39 +1,39 @@
-const alumnos = [
+const docentes = [
     {
     id: 1,
     nombre: "ana",
-    carrera: "programacion"
+    especialidad: "lengua"
     },
     {   
         id: 2,
         nombre: "pablo",
-        carrera: "programacion"
+        especialidad: "tecnologia"
     },
     {   
         id: 3,
         nombre: "juanchi",
-        carrera: "programacion"
+        especialidad: "educacion fisica"
     },
     {   
         id: 4,
         nombre: "nahue",
-        carrera: "programacion"
+        especialidad: "programacion"
     },
     {   
         id: 5,
         nombre: "joa",
-        carrera: "programacion"
+        especialidad: "matematica"
     },
     {   
         id: 6,
         nombre: "ale",
-        carrera: "programacion"
+        especialidad: "historia"
     },
     {   
         id: 7,
         nombre: "juanka",
-        carrera: "matematica"
+        especialidad: "videojuegos"
     }
 ]
 
-module.exports = alumnos;
+module.exports = docentes;
