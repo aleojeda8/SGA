@@ -23,6 +23,16 @@ Content-Type: application/json
     "carrera": "programacion IV"
 }
 
+###otro post
+POST http://localhost:3000/alumnos
+Content-Type: application/json
+
+{ 
+    "id": 12,
+    "nombre": 123,
+    "carrera": "biologia"
+}
+
 ###
 PUT http://localhost:3000/alumnos/1
 Content-Type: application/json
