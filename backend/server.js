@@ -5,7 +5,8 @@ const alumnosRoutes = require("./routes/alumnos.routes");
 const docentesRoutes = require("./routes/docentes.routes")
 app.use("/alumnos", alumnosRoutes);
 app.use("/docentes", docentesRoutes);
-
+const connectBD = require("./config/database");
+connectBD();
 ///Creo un middleware
 // app.use((req, res, next) => {
 //     console.log("Se ha recibido una peticion");
