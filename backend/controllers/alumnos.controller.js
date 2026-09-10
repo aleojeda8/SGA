@@ -5,49 +5,39 @@ async function obtenerAlumnos(req, res){
     res.json(alumnos);
 }
 
-function obtenerAlumno(req, res){
-    const id = Number(req.params.id);
-    const alumno = alumnos.find(a => a.id === id)
+async function obtenerAlumno(req, res){
+    const alumno = await Alumno.findOne({legajo: Number (req.params.id)});
     if(!alumno){
         return res.status(404).json({Error: "Alumno no encontrado"});
     }
     res.json(alumno);
 }
 
-function registrarAlumno(req, res){
-    const alumno = req.body;
-    const {id, nombre, carrera} = req.body;
-    if( !id || !nombre || !carrera){
+async function registrarAlumno(req, res){
+    const {legajo, nombre, carrera, correo} = req.body;
+    if( !legajo || !nombre || !carrera || !correo){
         return res.status(400).json({Error: "Todos los campos son obligatorios"});
     }
     if(typeof nombre !== "string"){
         return res.status(400).json({Error: "El nombre debe ser un string"});
     }
-    alumnos.push(alumno);
-    res.status(201).json({mensaje: "Alumno registrado correctamente"});
+    const newAlumno = await Alumno.create({legajo, nombre, carrera, correo});
+    res.status(201).json(newAlumno);
 }
 
-function actualizarAlumno (req, res){
-    const id = Number(req.params.id);
-    const alumno = alumnos.find(alumno => alumno.id === id);
+async function actualizarAlumno (req, res){
+    const alumno = await Alumno.findOneAndUpdate({legajo: Number(req.params.id)}, req.body, {returnDocument: "after"});
     if(!alumno){
         return res.status(404).json({Error: "Alumno no encontrado"});
     }
-    // alumno.id = req.body.id;
-    alumno.nombre = req.body.nombre;
-    alumno.carrera = req.body.carrera;
-    res.json({mensaje:"Alumno actualizado correctamente"});
+    res.json(alumno);
 }
 
-function eliminarAlumno (req, res){
-    const id = Number(req.params.id);
-    const alumno = alumnos.find(alumno => alumno.id === id);
+async function eliminarAlumno (req, res){
+    const alumno = await Alumno.findOneAndDelete({legajo: Number(req.params.id)});
     if(!alumno){
         return res.status(404).json({Error: "Alumno no encontrado"});
     }
-    const alumnosAux = alumnos.filter(alumno => alumno.id !== id);
-    alumnos.length = 0;
-    alumnos.push(...alumnosAux);
     res.json({mensaje: "Alumno eliminado correctamente"});
 }
 
