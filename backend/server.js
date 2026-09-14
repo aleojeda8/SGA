@@ -6,7 +6,10 @@ const docentesRoutes = require("./routes/docentes.routes")
 app.use("/alumnos", alumnosRoutes);
 app.use("/docentes", docentesRoutes);
 const connectBD = require("./config/database");
+require("dotenv").config();
+const PORT =process.env.PORT
 connectBD();
+
 ///Creo un middleware
 // app.use((req, res, next) => {
 //     console.log("Se ha recibido una peticion");
@@ -16,7 +19,7 @@ connectBD();
 // });
 
 
-app.listen(3000, () =>  {
-    console.log("Servidor funcionando en el puerto 3000");
+app.listen(PORT, () =>  {
+    console.log(`Servidor funcionando en el puerto ${PORT}`);
 })
 

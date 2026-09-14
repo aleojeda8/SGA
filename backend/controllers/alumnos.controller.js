@@ -21,12 +21,23 @@ async function registrarAlumno(req, res){
     if(typeof nombre !== "string"){
         return res.status(400).json({Error: "El nombre debe ser un string"});
     }
+    if(typeof legajo !== "number"){
+        return res.status(400).json({Error: "El legajo debe ser un numero"});
+    }
+    const existe = await Alumno.findOne({legajo: Number(legajo)});
+    if(existe){
+        return res.status(400).json({Error: "El legajo ya existe"});
+    }
+    
     const newAlumno = await Alumno.create({legajo, nombre, carrera, correo});
     res.status(201).json(newAlumno);
 }
 
 async function actualizarAlumno (req, res){
-    const alumno = await Alumno.findOneAndUpdate({legajo: Number(req.params.id)}, req.body, {returnDocument: "after"});
+    const {nombre, carrera, correo} = req.body;
+    
+    const alumno = await Alumno.findOneAndUpdate({legajo: Number(req.params.id)}, 
+    {nombre, carrera, correo}, {returnDocument: "after"});
     if(!alumno){
         return res.status(404).json({Error: "Alumno no encontrado"});
     }

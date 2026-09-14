@@ -1,7 +1,7 @@
 GET http://localhost:3000/alumnos
 
 ###
-GET http://localhost:3000/alumnos/6aa038abd8b4f0936d7ba67d
+GET http://localhost:3000/alumnos/25
 
 ###
 POST http://localhost:3000/alumnos
@@ -35,13 +35,13 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:3000/alumnos/1001
+PUT http://localhost:3000/alumnos/25
 Content-Type: application/json
 
 {
-    "legajo": 100,
     "nombre": "ale",
-    "carrera": "H"
+    "carrera": "H",
+    "correo": "alex@exaple.com"
 }
 
 ###
@@ -52,7 +52,7 @@ GET http://localhost:3000/docentes
 
 ###
 
-GET http://localhost:3000/docentes/98
+GET http://localhost:3000/docentes/1
 
 ###
 POST http://localhost:3000/docentes
