@@ -7,6 +7,13 @@ const btnCancelar = document.querySelector("#btn-cancelar");
 btnCancelar.style.display = "none";
 const btnGuardar = document.querySelector("#btnGuardar")
 
+// async function cargarDatos(){
+//     const res = await fetch("http://localhost:3000/alumnos");
+//     const alumnos = await res.json();
+//     console.table(alumnos);
+// }
+// cargarDatos();
+
 formulario.addEventListener("submit", function (event){
     event.preventDefault();
 
@@ -33,7 +40,7 @@ formulario.addEventListener("submit", function (event){
 
     if( alumnoEditadoId === null ){
         const alumno = {
-        id: Date.now(),
+        legajo: legajo,
         nombre: nombre,
         carrera: carrera,
         correo: correo
@@ -43,7 +50,7 @@ formulario.addEventListener("submit", function (event){
         mostrarMensaje("Alumno guardado correctamente.", "mje-exito");
 
     }else{
-        const alumno = alumnos.find(alumno => alumno.id === alumnoEditadoId)
+        const alumno = alumnos.find(alumno => alumno.legajo === alumnoEditadoId)
         
         const datosActuales = {
             nombre: nombre,
@@ -75,10 +82,14 @@ formulario.addEventListener("submit", function (event){
     formulario.reset();
 })
 
-function obtenerAlumnos(){
+async function obtenerAlumnos(){
+
+    const respuesta = await fetch("http://localhost:3000/alumnos");
+    const alumnos = await respuesta.json();
+    return alumnos;
     // const datos = localStorage.getItem("alumnos");
     // return datos ? JSON.parse(datos) : [];
-    return obtenerDatos("alumnos")
+    // return obtenerDatos("alumnos")
 }
 
 // function mostrarMensaje(texto, clase){
@@ -94,22 +105,22 @@ function mostrarAlumnos(alumnos){
     listaAlumnos.innerHTML = "";
     for (const alumno of alumnos){
         listaAlumnos.innerHTML += `<tr>
-            <td>${alumno.id}</td>
+            <td>${alumno.legajo}</td>
             <td>${alumno.nombre}</td>
             <td>${alumno.carrera}</td>
             <td>${alumno.correo}</td>
             <td>
-                <button class="btn-editar" data-id="${alumno.id}">Editar</button>
-                <button class="btn-eliminar" data-id="${alumno.id}">Eliminar</button>
+                <button class="btn-editar" data-id="${alumno.legajo}">Editar</button>
+                <button class="btn-eliminar" data-id="${alumno.legajo}">Eliminar</button>
             </td>
         </tr>`;
     }
 }
 
-function eiminarAlumno(id) {
+function eiminarAlumno(legajo) {
     const alumnos = obtenerAlumnos();
     const alumnosActuaizados = alumnos.filter(
-        alumno => alumno.id !== id
+        alumno => alumno.legajo !== legajo
     );
 
     guardarDatos("alumnos", alumnosActuaizados);
@@ -119,19 +130,19 @@ function eiminarAlumno(id) {
 
 listaAlumnos.addEventListener("click", (e) =>{
     if (e.target.classList.contains("btn-eliminar")){
-        const id = Number(e.target.dataset.id);
-        eiminarAlumno(id);
+        const legajo = Number(e.target.dataset.legajo);
+        eiminarAlumno(legajo);
     }
 
     if (e.target.classList.contains("btn-editar")){
-        const id = Number(e.target.dataset.id);
-        editarAlumno(id);
+        const legajo = Number(e.target.dataset.legajo);
+        editarAlumno(legajo);
     }
 })
 
-function editarAlumno(id){
+function editarAlumno(legajo){
     const alumnos = obtenerAlumnos();
-    const alumno = alumnos.find(alumno => alumno.id === id)
+    const alumno = alumnos.find(alumno => alumno.legajo === legajo);
     document.querySelector("#nombre").value = alumno.nombre;
     document.querySelector("#carrera").value = alumno.carrera;
     document.querySelector("#correo").value = alumno.correo;
@@ -140,7 +151,7 @@ function editarAlumno(id){
         carrera: alumno.carrera,
         correo: alumno.correo
     }
-    alumnoEditadoId = id;
+    alumnoEditadoId = legajo;
     btnCancelar.style.display = "inline-block";
 
     btnGuardar.textContent ="Actualizar Alumno";
@@ -158,6 +169,9 @@ function cancelarEdicion(){
 
 btnCancelar.addEventListener("click", cancelarEdicion);
 
-const alumnos = obtenerAlumnos();
-mostrarAlumnos(alumnos);
+async function iniciar(){
+    const alumnos = await obtenerAlumnos();
+    mostrarAlumnos(alumnos);
+}
 
+iniciar();
