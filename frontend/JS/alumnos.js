@@ -1,11 +1,12 @@
 const formulario = document.querySelector("#formulario");
 const listaAlumnos = document.querySelector("#listadoAlumnos");
 const mensaje = document.querySelector("#mensaje");
-let alumnoEditadoId = null;
+let alumnoEditadoLegajo = null;
 let alumnoEditar = null;
 const btnCancelar = document.querySelector("#btn-cancelar");
 btnCancelar.style.display = "none";
 const btnGuardar = document.querySelector("#btnGuardar")
+const API_ALUMNOS = "http://localhost:3000/alumnos";
 
 // async function cargarDatos(){
 //     const res = await fetch("http://localhost:3000/alumnos");
@@ -14,14 +15,15 @@ const btnGuardar = document.querySelector("#btnGuardar")
 // }
 // cargarDatos();
 
-formulario.addEventListener("submit", function (event){
+formulario.addEventListener("submit", async function (event){
     event.preventDefault();
 
+    const legajo = document.querySelector("#legajo").value.trim();
     const nombre = document.querySelector("#nombre").value.trim();
     const carrera = document.querySelector("#carrera").value.trim();
     const correo = document.querySelector("#correo").value.trim();
 
-    if (nombre === "" || carrera === "" || correo === ""){
+    if (legajo === "" || nombre === "" || carrera === "" || correo === ""){
         mostrarMensaje("Todos los campos son obligatorios", "mje-error");
         return;
     }
@@ -36,21 +38,29 @@ formulario.addEventListener("submit", function (event){
         return
     }
 
-    const alumnos = obtenerAlumnos();
-
-    if( alumnoEditadoId === null ){
+    if( alumnoEditadoLegajo === null ){
         const alumno = {
-        legajo: legajo,
+        legajo: Number(legajo),
         nombre: nombre,
         carrera: carrera,
         correo: correo
         }
 
-        alumnos.push(alumno);
+        const respuesta = await fetch(API_ALUMNOS, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(alumno)
+        });
+        if(!respuesta.ok){
+            mostrarMensaje("Error al guradar el alumno", "mje-error");
+            return
+        }
         mostrarMensaje("Alumno guardado correctamente.", "mje-exito");
 
     }else{
-        const alumno = alumnos.find(alumno => alumno.legajo === alumnoEditadoId)
+        // const alumno = alumnos.find(alumno => alumno.legajo === alumnoEditadoLegajo)
         
         const datosActuales = {
             nombre: nombre,
@@ -63,28 +73,37 @@ formulario.addEventListener("submit", function (event){
                 mostrarMensaje("No se realizaron cambios", "mje-adv");
                 return 
         }
-        alumno.nombre = nombre;
-        alumno.carrera = carrera;
-        alumno.correo = correo;
-        
-        alumnoEditadoId = null;
-        alumnoEditar = null;
-        btnGuardar.textContent ="Guardar Alumno";
+        const respuesta = await fetch(`${API_ALUMNOS}/${alumnoEditadoLegajo}`,{
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nombre: nombre,
+                carrera: carrera,
+                correo: correo
+            }) 
+        })
+        if(!respuesta.ok){
+            mostrarMensaje("Error al actualizar el alumno", "mje-error");
+            return
+        }
 
+        alumnoEditadoLegajo = null;
+        alumnoEditar = null;
+        btnCancelar.style.display = "none";
+        btnGuardar.textContent ="Guardar Alumno";
+        document.querySelector("#legajo").disabled = false;
         mostrarMensaje("Alumno Actualizado Correctamente", "mje-exito");
     }
-    
-    // localStorage.setItem("alumnos", JSON.stringify(alumnos));
-    guardarDatos("alumnos", alumnos)
-
-    mostrarAlumnos(alumnos);
+    await actualizarListaAlumnos();
 
     formulario.reset();
 })
 
 async function obtenerAlumnos(){
 
-    const respuesta = await fetch("http://localhost:3000/alumnos");
+    const respuesta = await fetch(API_ALUMNOS);
     const alumnos = await respuesta.json();
     return alumnos;
     // const datos = localStorage.getItem("alumnos");
@@ -110,39 +129,62 @@ function mostrarAlumnos(alumnos){
             <td>${alumno.carrera}</td>
             <td>${alumno.correo}</td>
             <td>
-                <button class="btn-editar" data-id="${alumno.legajo}">Editar</button>
-                <button class="btn-eliminar" data-id="${alumno.legajo}">Eliminar</button>
+                <button class="btn-editar" data-legajo="${alumno.legajo}">Editar</button>
+                <button class="btn-eliminar" data-legajo="${alumno.legajo}">Eliminar</button>
             </td>
         </tr>`;
     }
 }
 
-function eiminarAlumno(legajo) {
-    const alumnos = obtenerAlumnos();
-    const alumnosActuaizados = alumnos.filter(
-        alumno => alumno.legajo !== legajo
-    );
-
-    guardarDatos("alumnos", alumnosActuaizados);
-    mostrarAlumnos(alumnosActuaizados);
+async function eliminarAlumno(legajo) {
+    const respuesta = await fetch(`${API_ALUMNOS}/${legajo}`,{
+        method: "DELETE",
+    })
+    if(!respuesta.ok){
+        mostrarMensaje("Error al eliminar el alumno", "mje-error");
+        return
+    }
+    if(alumnoEditadoLegajo === legajo){
+        formulario.reset();
+        alumnoEditadoLegajo = null;
+        alumnoEditar = null;
+        btnGuardar.textContent = "Guardar Alumno";
+        document.querySelector("#legajo").disabled = false;
+    }
     mostrarMensaje("Alumno Eliminado Correctamente","mje-exito");
+    await actualizarListaAlumnos();
+}
+
+async function actualizarListaAlumnos(){
+    const alumnos = await obtenerAlumnos();
+    mostrarAlumnos(alumnos);
 }
 
 listaAlumnos.addEventListener("click", (e) =>{
-    if (e.target.classList.contains("btn-eliminar")){
-        const legajo = Number(e.target.dataset.legajo);
-        eiminarAlumno(legajo);
+    const boton_el = e.target.closest(".btn-eliminar")
+    if (boton_el) {
+        const legajo = Number(boton_el.dataset.legajo)
+        const confirmar = confirm("¿Está seguro de eliminar este alumno?")
+        if (confirmar) {
+        eliminarAlumno(legajo)
+        }
     }
-
-    if (e.target.classList.contains("btn-editar")){
-        const legajo = Number(e.target.dataset.legajo);
-        editarAlumno(legajo);
+    const boton_ed = e.target.closest(".btn-editar")
+    if (boton_ed) {
+        const legajo = Number(boton_ed.dataset.legajo)
+        editarAlumno(legajo)
     }
 })
 
-function editarAlumno(legajo){
-    const alumnos = obtenerAlumnos();
+async function editarAlumno(legajo){
+    const alumnos = await obtenerAlumnos();
     const alumno = alumnos.find(alumno => alumno.legajo === legajo);
+    if(!alumno){
+        mostrarMensaje("Alumno no encontrado", "mje-error");
+        return;
+    }
+    document.querySelector("#legajo").value = alumno.legajo;
+    document.querySelector("#legajo").disabled = true;
     document.querySelector("#nombre").value = alumno.nombre;
     document.querySelector("#carrera").value = alumno.carrera;
     document.querySelector("#correo").value = alumno.correo;
@@ -151,27 +193,27 @@ function editarAlumno(legajo){
         carrera: alumno.carrera,
         correo: alumno.correo
     }
-    alumnoEditadoId = legajo;
+    alumnoEditadoLegajo = legajo;
     btnCancelar.style.display = "inline-block";
 
     btnGuardar.textContent ="Actualizar Alumno";
-    document.querySelector("#nombre").focus();
+    document.querySelector("#legajo").focus();
 }
 
 function cancelarEdicion(){
     formulario.reset();
-    alumnoEditadoId = null;
+    alumnoEditadoLegajo = null;
     alumnoEditar = null;
     btnGuardar.textContent = "Guardar Alumno";
+    document.querySelector("#legajo").disabled = false;
     btnCancelar.style.display = "none";
-    document.querySelector("#nombre").focus();
+    document.querySelector("#legajo").focus();
 }
 
 btnCancelar.addEventListener("click", cancelarEdicion);
 
 async function iniciar(){
-    const alumnos = await obtenerAlumnos();
-    mostrarAlumnos(alumnos);
+    await actualizarListaAlumnos();
 }
 
 iniciar();
