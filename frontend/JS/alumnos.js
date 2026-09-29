@@ -16,6 +16,7 @@ const API_ALUMNOS = "http://localhost:3000/alumnos";
 // cargarDatos();
 
 formulario.addEventListener("submit", async function (event){
+    
     event.preventDefault();
 
     const legajo = document.querySelector("#legajo").value.trim();
@@ -37,8 +38,8 @@ formulario.addEventListener("submit", async function (event){
         mostrarMensaje("El nombre debe tener mas de 3 caracteres","mje-error");
         return
     }
-
-    if( alumnoEditadoLegajo === null ){
+    try{
+        if( alumnoEditadoLegajo === null ){
         const alumno = {
         legajo: Number(legajo),
         nombre: nombre,
@@ -54,12 +55,11 @@ formulario.addEventListener("submit", async function (event){
             body: JSON.stringify(alumno)
         });
         if(!respuesta.ok){
-            mostrarMensaje("Error al guradar el alumno", "mje-error");
-            return
+            throw new Error("La API no responde correctamente al guardar el alumno");
         }
         mostrarMensaje("Alumno guardado correctamente.", "mje-exito");
 
-    }else{
+        }else{
         // const alumno = alumnos.find(alumno => alumno.legajo === alumnoEditadoLegajo)
         
         const datosActuales = {
@@ -74,19 +74,18 @@ formulario.addEventListener("submit", async function (event){
                 return 
         }
         const respuesta = await fetch(`${API_ALUMNOS}/${alumnoEditadoLegajo}`,{
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                nombre: nombre,
-                carrera: carrera,
-                correo: correo
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    nombre: nombre,
+                    carrera: carrera,
+                    correo: correo
             }) 
         })
         if(!respuesta.ok){
-            mostrarMensaje("Error al actualizar el alumno", "mje-error");
-            return
+            throw new Error("La API no responde correctamente al actualizar el alumno")
         }
 
         alumnoEditadoLegajo = null;
@@ -96,16 +95,26 @@ formulario.addEventListener("submit", async function (event){
         document.querySelector("#legajo").disabled = false;
         mostrarMensaje("Alumno Actualizado Correctamente", "mje-exito");
     }
-    await actualizarListaAlumnos();
+        await actualizarListaAlumnos();
+        formulario.reset();
 
-    formulario.reset();
+    }catch(error){
+        console.log(error.message);
+        mostrarMensaje("No fue posible la operacion, intente nuevamente mas tarde", "mje-error");
+    }
+    
 })
 
 async function obtenerAlumnos(){
+    try{
+        const respuesta = await fetch(API_ALUMNOS);
+        const alumnos = await respuesta.json();
+        return alumnos;
 
-    const respuesta = await fetch(API_ALUMNOS);
-    const alumnos = await respuesta.json();
-    return alumnos;
+    }catch(error){
+        console.log(error.message);
+        throw error;
+    }
     // const datos = localStorage.getItem("alumnos");
     // return datos ? JSON.parse(datos) : [];
     // return obtenerDatos("alumnos")
@@ -156,8 +165,13 @@ async function eliminarAlumno(legajo) {
 }
 
 async function actualizarListaAlumnos(){
-    const alumnos = await obtenerAlumnos();
-    mostrarAlumnos(alumnos);
+    try{
+        const alumnos = await obtenerAlumnos();
+        mostrarAlumnos(alumnos);
+
+    }catch(error){
+        mostrarMensaje("No fue posible obtener la lista de alumnos, intente nuevamente mas tarde", "mje-error");
+    }
 }
 
 listaAlumnos.addEventListener("click", (e) =>{
