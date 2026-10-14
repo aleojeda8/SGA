@@ -9,7 +9,7 @@ app.use("/alumnos", alumnosRoutes);
 app.use("/docentes", docentesRoutes);
 const connectBD = require("./config/database");
 require("dotenv").config();
-const PORT =process.env.PORT
+const PORT = process.env.PORT
 
 connectBD();
 

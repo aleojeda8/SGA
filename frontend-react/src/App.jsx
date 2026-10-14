@@ -7,15 +7,15 @@
 // import Adivinar from "./components/ejemplos/Adivinar";
 // import CambiarMensaje from "./components/ejemplos/CambiarMensaje";
 // import CambiarTamanio from "./components/ejemplos/CambiarTamanio";
-// import FormularioA from "./components/FormularioA";
+import FormularioA from "./components/FormularioA";
 // import Pantalla from "./components/ejemplos/pantalla";
-import {ListaAlumnos} from "./components/ListaAlumnos";
+// import {ListaAlumnos} from "./components/ListaAlumnos";
 
 function App(){
 
   return (
       <>
-        <ListaAlumnos />
+      <FormularioA /> 
       </>
     )
   }
