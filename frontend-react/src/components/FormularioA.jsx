@@ -1,12 +1,12 @@
 import { useState } from "react";
 const API_ALUMNOS = "http://localhost:3000/alumnos"
 
-function FormularioA({ onAlumnoCreado }){
+function FormularioA({ onAlumnoCreado, alumnoEditar, onCancelar }){
     const [formulario, setFormulario] = useState({
-        legajo: "",
-        nombre: "",
-        carrrera: "",
-        correo: ""
+        legajo: String(alumnoEditar?.legajo ?? ""),
+        nombre: alumnoEditar?.nombre ?? "",
+        carrera: alumnoEditar?.carrera ?? "",
+        correo: alumnoEditar?.correo ?? ""
     })
     const [error, setError] = useState("")
     const [guardando, setGuardando] = useState(false)
@@ -25,13 +25,19 @@ function FormularioA({ onAlumnoCreado }){
         setError("")
         setGuardando(true)
         
+        const alumno = {
+            ...formulario,
+            legajo: Number(formulario.legajo)
+        }
+
+        const editando = Boolean(alumnoEditar)
+
+        const url = editando ? `${API_ALUMNOS}/${alumnoEditar.legajo}` : API_ALUMNOS
+
         try {
-            const alumno = {
-                ...formulario,
-                legajo: Number(formulario.legajo)
-            }
-            const respuesta = await fetch(API_ALUMNOS, {
-                method: "POST",
+
+            const respuesta = await fetch(url, {
+                method: editando ? "PUT" : "POST",
                 headers: {"Content-Type":"application/json"},
                 body: JSON.stringify(alumno)
             })
@@ -52,8 +58,14 @@ function FormularioA({ onAlumnoCreado }){
             setGuardando(false)
         }
     }
+
+    function cancelar(){
+        onCancelar()
+    }
+
     return(
         <>
+        <h2>{alumnoEditar ? "Editar Alumno" : "Nuevo Alumno"}</h2>
         <form onSubmit={guardar}>
             <label htmlFor="legajo">Legajo</label>
             <input
@@ -92,8 +104,9 @@ function FormularioA({ onAlumnoCreado }){
             />
             <br />
             <button type="submit" disabled={guardando}>
-                {guardando ? "Guardando..." : "Guardar"}
+                {guardando ? "Guardando..." : alumnoEditar ? "Guardar Cambios" : "Guardar"}
             </button>
+            {alumnoEditar && (<button type="button" onClick={cancelar} disabled={guardando}>Cancelar</button>)}
             <br />
             {error && <p role="alert">{error}</p>}
         </form>
