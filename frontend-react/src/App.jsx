@@ -11,7 +11,8 @@
 import { ListaAlumnos } from "./components/ListaAlumnos"
 import { useState } from "react"
 import FormularioA from "./components/FormularioA"
-import { EjemploMUI } from "./components/ejemplos/EjemploMui";    
+import { EjemploMUI } from "./components/ejemplos/EjemploMui";
+import SelectorTema from "./components/SelectorTema";
 
 function App()
 {
@@ -28,10 +29,11 @@ function seleccionarAlumno(alumno) {
 
 return (
   <main>
-  
+  <SelectorTema />
+  <br />
   <FormularioA key={alumnoEditar?.legajo ?? "nuevo"} onAlumnoCreado={alumnoCreado} 
   alumnoEditar={alumnoEditar} onCancelar={() => setAlumnoEditar(null)}/>
-
+  <br />
   <ListaAlumnos actualizar={actualizar} 
   onAlumnoCreado={alumnoCreado} onEditarAlumno={seleccionarAlumno}/>
   <EjemploMUI />
