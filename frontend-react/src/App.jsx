@@ -8,36 +8,25 @@
 // import CambiarMensaje from "./components/ejemplos/CambiarMensaje";
 // import CambiarTamanio from "./components/ejemplos/CambiarTamanio";
 // import Pantalla from "./components/ejemplos/pantalla";
-import { ListaAlumnos } from "./components/ListaAlumnos"
-import { useState } from "react"
-import FormularioA from "./components/FormularioA"
-import { EjemploMUI } from "./components/ejemplos/EjemploMui";
-import SelectorTema from "./components/SelectorTema";
+// import Alumnos from "./page/Alumnos";
+// import { EjemploMUI } from "./components/ejemplos/EjemploMui";
+// import SelectorTema from "./components/SelectorTema";
+import { Routes, Route } from "react-router-dom";
+import LayoutPpal from "./layouts/LayoutPpal";
+import Inicio from "./page/inicio";
+import Alumnos from "./page/Alumnos";
+import Docentes from "./page/Docentes";
 
 function App()
 {
-const [actualizar, setActualizar] = useState(0);
-const [alumnoEditar, setAlumnoEditar] = useState(null);
-
-function alumnoCreado() {
-  setActualizar(valor => valor + 1)
-}
-
-function seleccionarAlumno(alumno) {
-  setAlumnoEditar(alumno)
-}
 
 return (
-  <main>
-  <SelectorTema />
-  <br />
-  <FormularioA key={alumnoEditar?.legajo ?? "nuevo"} onAlumnoCreado={alumnoCreado} 
-  alumnoEditar={alumnoEditar} onCancelar={() => setAlumnoEditar(null)}/>
-  <br />
-  <ListaAlumnos actualizar={actualizar} 
-  onAlumnoCreado={alumnoCreado} onEditarAlumno={seleccionarAlumno}/>
-  <EjemploMUI />
-  </main>
-  )
+    <Routes>
+      <Route path="/" element={<LayoutPpal />} />
+      <Route index element={<Inicio />} />
+      <Route path="alumnos" element={<Alumnos />} />
+      <Route path="docentes" element={<Docentes />} />
+  </Routes>
+)
 }
 export default App

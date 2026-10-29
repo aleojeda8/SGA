@@ -1,9 +1,9 @@
-import Box from "@mui/material/box";
+import Box from "@mui/material/Box";
 import { useColorScheme } from "@mui/material/styles";
 import MaterialUISwitch from "./MaterialUISwitch";
 
 function SelectorTema() {
-    const [mode, setMode] = useColorScheme();
+    const {mode, setMode} = useColorScheme();
     
     if(!mode){
         return null
@@ -16,9 +16,10 @@ function SelectorTema() {
     return (
         <Box sx={{
             display: "flex",
-            justifyContent: "flex-end",
-            mb: 3,
-            with: "100%"
+            alignItems: "center",
+            justifyContent: "center",
+            width: "auto",
+            ml: 1
         }}>
             <MaterialUISwitch 
             checked={modoBlanco} 

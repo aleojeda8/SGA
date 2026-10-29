@@ -59,9 +59,10 @@ POST http://localhost:3000/docentes
 Content-Type: application/json
 
 {
-    "id": 25,
+    "dni": 25,
     "nombre": "juan",
-    "especialidad": "matematica"
+    "especialidad": "matematica",
+    "correo": "Juana23@gmail.com"
 }
 
 ###

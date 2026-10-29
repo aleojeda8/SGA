@@ -56,18 +56,21 @@ export function ListaAlumnos({ actualizar, onAlumnoCreado, onEditarAlumno }) {
         return <p role="alert">{error}</p>
     }
     return (
-    <section>
+    <section className="student-list">
     <h2>Alumnos</h2>
     {alumnos.length === 0 
     ? (<p>No hay alumnos registrados.</p>)
     : ( 
-        <ul style={{listStyle:"none"}}>
+        <ul className="student-list__items" style={{listStyle:"none"}}>
         {alumnos.map(alumno => (
-            <li key={alumno.legajo}>
-            {alumno.legajo} - {alumno.nombre} - {alumno.carrera}
-            <br />
-            <button type="button" onClick={() => onEditarAlumno(alumno)}>Editar</button>
-            <button type="button" onClick={() => eliminarAlumno(alumno.legajo)}>Eliminar</button>
+            <li className="student-list__item" key={alumno.legajo}>
+            <div className="student-list__details">
+                {alumno.legajo} - {alumno.nombre} - {alumno.carrera}
+            </div>
+            <div className="student-list__actions">
+                <button type="button" onClick={() => onEditarAlumno(alumno)}>Editar</button>
+                <button type="button" onClick={() => eliminarAlumno(alumno.legajo)}>Eliminar</button>
+            </div>
         </li>)
     )}
     </ul>
