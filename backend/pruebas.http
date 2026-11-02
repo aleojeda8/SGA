@@ -87,3 +87,13 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:3000/docentes/1
+
+###
+
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "ale@gmail.com",
+    "password": "SuperClave8"
+}

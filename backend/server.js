@@ -3,10 +3,15 @@ const app = express();
 const cors = require("cors");
 app.use(express.json());
 app.use(cors());
+
 const alumnosRoutes = require("./routes/alumnos.routes");
 const docentesRoutes = require("./routes/docentes.routes")
+const authRoutes = require("./routes/authRoutes");
+
 app.use("/alumnos", alumnosRoutes);
 app.use("/docentes", docentesRoutes);
+app.use("/auth", authRoutes); 
+
 const connectBD = require("./config/database");
 require("dotenv").config();
 const PORT = process.env.PORT
