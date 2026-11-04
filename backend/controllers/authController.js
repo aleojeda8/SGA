@@ -29,10 +29,13 @@ const login = async (req, res) => {
 
         return res.status(200).json({
             mensaje: "Login correcto",
-            id: usuario._id,
-            nombre: usuario.nombre,
-            email: usuario.email,
-            rol: usuario.rol
+            usuario: {
+                id: usuario._id,
+                nombre: usuario.nombre,
+                email: usuario.email,
+                rol: usuario.rol
+            }
+            
         })
     }catch (error) {
         console.error("Error en login: ", error)
