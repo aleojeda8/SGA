@@ -3,7 +3,7 @@ const API_DOCENTES = "http://localhost:3000/docentes"
 
 function FormularioD({ onDocenteCreado, docenteEditar, onCancelar }){
     const [formulario, setFormulario] = useState({
-        legajo: String(docenteEditar?.dni ?? ""),
+        dni: String(docenteEditar?.dni ?? ""),
         nombre: docenteEditar?.nombre ?? "",
         especialidad: docenteEditar?.especialidad ?? "",
         correo: docenteEditar?.correo ?? ""
@@ -27,7 +27,7 @@ function FormularioD({ onDocenteCreado, docenteEditar, onCancelar }){
         
         const docente = {
             ...formulario,
-            dni: Number(formulario.legajo)
+            dni: Number(formulario.dni)
         }
 
         const editando = Boolean(docenteEditar)

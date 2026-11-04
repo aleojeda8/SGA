@@ -65,7 +65,7 @@ export function ListaDocentes({ actualizar, onDocenteCreado, onEditarDocente }) 
         {docentes.map(docente => (
             <li className="student-list__item" key={docente.dni}>
             <div className="student-list__details">
-                {docente.dni} - {docente.nombre} - {docente.especializacion}
+                {docente.dni} - {docente.nombre} - {docente.especialidad}
             </div>
             <div className="student-list__actions">
                 <button type="button" onClick={() => onEditarDocente(docente)}>Editar</button>

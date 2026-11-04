@@ -7,10 +7,12 @@ app.use(cors());
 const alumnosRoutes = require("./routes/alumnos.routes");
 const docentesRoutes = require("./routes/docentes.routes")
 const authRoutes = require("./routes/authRoutes");
+const materiasRoutes = require("./routes/materias.routes");
 
 app.use("/alumnos", alumnosRoutes);
 app.use("/docentes", docentesRoutes);
-app.use("/auth", authRoutes); 
+app.use("/auth", authRoutes);
+app.use("/materias", materiasRoutes);
 
 const connectBD = require("./config/database");
 require("dotenv").config();

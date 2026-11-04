@@ -1,0 +1,50 @@
+import { Alert, Box, Button, TexField, Typograph } from "@mui/material";
+import { useTheme  } from "@emotion/react";
+import { use, useState } from "react";
+const API_LOGIN = "http:localhost:3000/auth/login"
+
+export default function Login () {
+    const theme = useTheme();
+    const [usuario, setUsuario] = useState(null);
+
+    const [error, setError] = useState("")
+    const [cargando, setCargando] = useState(false)
+    const [mensaje, setMensaje] = useState("")
+
+    const [email, setEmail] = useState("")
+    const [password, setPasssword] = useState("")
+
+    async function login(e) {
+        e.preventDefault()
+        setError("")
+        setCargando(true)
+        setUsuario(null)
+        setMensaje("")
+
+        try{
+            const respuesta = await fetch("API_LOGIN", {
+                method: POST,
+                headers: {"Content-Type":"application/json"},
+                body: JSON.stringify({email, password})
+            })
+
+            const datos = await respuesta.json()
+
+            if(!respuesta.ok){
+                throw new Error(datos.mensaje || "No se pudo iniciar sesion")
+            }
+
+            setUsuario(datos.usuario)
+            setMensaje(datos.mensaje)
+
+            setEmail("")
+            setPasssword("")
+
+        }catch(error){
+            console.error("Error en login: ", error)
+            setError(error.mensaje || "No se pudo conectar eon ell servidor")
+        }finally{
+            setCargando(false)
+        }
+    }
+}

@@ -15,6 +15,7 @@ export default function Header() {
                 <Link to="/">Inicio</Link>
                 <Link to="/alumnos">Alumnos</Link>
                 <Link to="/docentes">Docentes</Link>
+                <Link to="/materias">Materias</Link>
                 <Link to="/ayuda" className="nav-help" aria-label="Ayuda">❔</Link>
                 <SelectorTema />
             </nav>
