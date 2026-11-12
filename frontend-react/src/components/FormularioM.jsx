@@ -23,36 +23,8 @@ function FormularioM({ onMateriaCreado, materiaEditar, onCancelar }) {
         })
     }
 
-    function validar() {
-        const carga = Number(formulario.cargaHoraria)
-
-        if (!formulario.codigo.trim()) {
-            return "El código es obligatorio"
-        }
-        if (!formulario.nombre.trim()) {
-            return "El nombre es obligatorio"
-        }
-        if (formulario.descripcion !== "" && !formulario.descripcion.trim()) {
-            return "La descripción no puede contener solo espacios"
-        }
-        if (!formulario.cargaHoraria.trim() || !Number.isInteger(carga) || carga <= 0) {
-            return "La carga horaria debe ser un número entero mayor que cero"
-        }
-        if (formulario.estado !== "activa" && formulario.estado !== "inactiva") {
-            return "El estado debe ser activa o inactiva"
-        }
-        return ""
-    }
-
     async function guardar(e) {
         e.preventDefault()
-
-        const mensajeError = validar()
-        if (mensajeError) {
-            setError(mensajeError)
-            return
-        }
-
         setError("")
         setGuardando(true)
 

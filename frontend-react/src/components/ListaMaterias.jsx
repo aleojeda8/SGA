@@ -12,14 +12,13 @@ export function ListaMaterias({ actualizar, onMateriaCreado, onEditarMateria }) 
             return
         }
         try {
-            const respuesta = await fetch(`${API_MATERIAS}/${encodeURIComponent(codigo)}`,
+            const respuesta = await fetch(`${API_MATERIAS}/${codigo}`,
                 { method: "DELETE" }
             )
-            const datos = await respuesta.json().catch(() => ({}))
-            if (!respuesta.ok) {
-                throw new Error(datos.Error || `No se pudo eliminar. Estado HTTP: ${respuesta.status}`)
+            if(!respuesta.ok){
+                throw new Error(`No se pudo eliminar. Estado HTTP: ${respuesta.status}`)
             }
-            onMateriaCreado("Materia eliminada correctamente")
+            onMateriaCreado()
         } catch (error) {
             console.error("Error al eliminar", error)
             alert(error instanceof TypeError ? "No se pudo conectar con el servidor" : error.message)

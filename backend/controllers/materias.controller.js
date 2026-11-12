@@ -1,8 +1,8 @@
-const Materia = require("../models/Materias");
+const Materia = require("../models/Materia");
 
 const ESTADOS = ["activa", "inactiva"];
 
-function validarCampos({ codigo, nombre, descripcion, cargaHoraria, estado }) {
+function validando({ codigo, nombre, descripcion, cargaHoraria, estado }) {
     if (codigo !== undefined && (typeof codigo !== "string" || codigo.trim() === "")) {
         return "El código es obligatorio y debe ser un texto";
     }
@@ -19,17 +19,6 @@ function validarCampos({ codigo, nombre, descripcion, cargaHoraria, estado }) {
         return "El estado solo puede ser activa o inactiva";
     }
     return null;
-}
-
-function manejarError(error, res) {
-    if (error.code === 11000) {
-        return res.status(409).json({ Error: "Ya existe una materia con ese código" });
-    }
-    if (error.name === "ValidationError") {
-        return res.status(400).json({ Error: Object.values(error.errors)[0].message });
-    }
-    console.error(error);
-    return res.status(500).json({ Error: "Error del servidor, intente nuevamente más tarde" });
 }
 
 async function obtenerMaterias(req, res) {
@@ -59,7 +48,7 @@ async function registrarMateria(req, res) {
         if (codigo === undefined || nombre === undefined || cargaHoraria === undefined || estado === undefined) {
             return res.status(400).json({ Error: "Código, nombre, carga horaria y estado son obligatorios" });
         }
-        const mensaje = validarCampos({ codigo, nombre, descripcion, cargaHoraria, estado });
+        const mensaje = validando({ codigo, nombre, descripcion, cargaHoraria, estado });
         if (mensaje) {
             return res.status(400).json({ Error: mensaje });
         }
@@ -73,7 +62,7 @@ async function registrarMateria(req, res) {
 async function actualizarMateria(req, res) {
     try {
         const { codigo, nombre, descripcion, cargaHoraria, estado } = req.body ?? {};
-        const mensaje = validarCampos({ codigo, nombre, descripcion, cargaHoraria, estado });
+        const mensaje = validando({ codigo, nombre, descripcion, cargaHoraria, estado });
         if (mensaje) {
             return res.status(400).json({ Error: mensaje });
         }

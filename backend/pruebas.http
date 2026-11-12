@@ -97,3 +97,8 @@ Content-Type: application/json
     "email": "ale@gmail.com",
     "password": "SuperClave8"
 }
+
+###
+
+GET http://localhost:3000/alumnos
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhZThjZGE1YmMwYmQ2ZTM2MTgyMzBjNCIsInJvbCI6ImFkbWluIiwiaWF0IjoxNzk0NTA3Njg1LCJleHAiOjE3OTQ1MTEyODV9.F2k8OxYzi_KYRLe1-GM1vWbpCN9eck_VOM0GB9yOwc8

@@ -26,7 +26,7 @@ function App()
 {
 
 return (
-  <Login />
+      <Login /> 
 //   <Routes>
 //     <Route path="/" element={<LayoutPpal />}>
 //       <Route index element={<Inicio />} />

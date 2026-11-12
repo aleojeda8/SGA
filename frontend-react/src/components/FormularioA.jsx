@@ -66,7 +66,7 @@ function FormularioA({ onAlumnoCreado, alumnoEditar, onCancelar }){
     return(
         <>
         <h2>{alumnoEditar ? "Editar Alumno" : "Nuevo Alumno"}</h2>
-        <form className="student-form" onSubmit={guardar}>
+        <form className="student-form" onSubmit={guardar} noValidate>
             <label htmlFor="legajo">Legajo</label>
             <input
             id="legajo"

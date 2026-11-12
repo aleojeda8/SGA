@@ -65,8 +65,8 @@ function FormularioD({ onDocenteCreado, docenteEditar, onCancelar }){
 
     return(
         <>
-        <h2>{docenteEditar ? "Editar Docente" : "Nuevo Docente"}</h2>
-        <form className="student-form" onSubmit={guardar}>
+        <h2>{docenteEditar ? "Editar Docente" : "Nuevo Docente"} </h2>
+        <form className="student-form" onSubmit={guardar} noValidate>
             <label htmlFor="dni">DNI</label>
             <input
             id="dni"

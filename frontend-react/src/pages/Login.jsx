@@ -34,6 +34,7 @@ export default function Login() {
                 throw new Error(datos.mensaje || "No se pudo iniciar sesion")
             }
 
+            localStorage.setItem("token", datos.token)
             setUsuario(datos.usuario)
             setMensaje(datos.mensaje)
             
@@ -141,5 +142,3 @@ export default function Login() {
         </Box>
     )
 }
-
-///commit Clase 45: formulario de login
