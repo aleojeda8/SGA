@@ -35,10 +35,11 @@ function FormularioA({ onAlumnoCreado, alumnoEditar, onCancelar }){
         const url = editando ? `${API_ALUMNOS}/${alumnoEditar.legajo}` : API_ALUMNOS
 
         try {
+            const token = localStorage.getItem("token");
 
             const respuesta = await fetch(url, {
                 method: editando ? "PUT" : "POST",
-                headers: {"Content-Type":"application/json"},
+                headers: {"Content-Type":"application/json", Authorization: `Bearer ${token}`},
                 body: JSON.stringify(alumno)
             })
             if (!respuesta.ok) {
