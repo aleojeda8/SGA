@@ -6,7 +6,7 @@ import tema from "./tema"
 import App from './App'
 import { BrowserRouter } from "react-router-dom"
 import './index.css';
-import { AuthProvider } from "./context/AuthContext"
+import AuthProvider from "./context/AuthProvider"
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

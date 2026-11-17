@@ -1,7 +1,15 @@
 import { Link } from "react-router-dom";
 import SelectorTema from "./SelectorTema";
-
+import { useNavigate } from "react-router-dom"
+import {useAuth } from "../context/useAuth";
 export default function Header() {
+    const { cerrarSesion } = useAuth();
+    const navigate = useNavigate();
+    
+    const logout = () => {
+        cerrarSesion();
+        navigate("/login");
+    }
     return (
         <header className="app-header">
             <Link to="/" className="header-brand" aria-label="SGA, inicio">
@@ -17,6 +25,7 @@ export default function Header() {
                 <Link to="/docentes">Docentes</Link>
                 <Link to="/materias">Materias</Link>
                 <Link to="/ayuda" className="nav-help" aria-label="Ayuda">❔</Link>
+                <button type="button" color="inherit" variant="outlined" onClick={logout}>Cerrar Sesion</button>
                 <SelectorTema />
             </nav>
         </header>

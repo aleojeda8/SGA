@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useAuth } from "../context/useAuth"
 const API_ALUMNOS = "http://localhost:3000/alumnos"
+
 
 function FormularioA({ onAlumnoCreado, alumnoEditar, onCancelar }){
     const [formulario, setFormulario] = useState({
@@ -10,6 +12,7 @@ function FormularioA({ onAlumnoCreado, alumnoEditar, onCancelar }){
     })
     const [error, setError] = useState("")
     const [guardando, setGuardando] = useState(false)
+    const { token } = useAuth();
 
     function manejarCambio(e) {
         const { name, value} = e.target
@@ -35,8 +38,6 @@ function FormularioA({ onAlumnoCreado, alumnoEditar, onCancelar }){
         const url = editando ? `${API_ALUMNOS}/${alumnoEditar.legajo}` : API_ALUMNOS
 
         try {
-            const token = localStorage.getItem("token");
-
             const respuesta = await fetch(url, {
                 method: editando ? "PUT" : "POST",
                 headers: {"Content-Type":"application/json", Authorization: `Bearer ${token}`},

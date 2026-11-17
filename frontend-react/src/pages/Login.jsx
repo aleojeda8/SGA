@@ -1,9 +1,14 @@
 import { Alert, Box, Button, TextField, Typography } from "@mui/material";
 import { useTheme  } from "@emotion/react";
 import { useState } from "react";
+import { useAuth } from "../context/useAuth";
+import { useNavigate } from "react-router-dom";
 const API_LOGIN = "http://localhost:3000/auth/login"
 
 export default function Login() {
+    const navigate = useNavigate();
+    const { setToken } = useAuth();
+
     const theme = useTheme();
     const [usuario, setUsuario] = useState(null);
 
@@ -35,12 +40,16 @@ export default function Login() {
             }
 
             localStorage.setItem("token", datos.token)
+            setToken(datos.token)
+
             setUsuario(datos.usuario)
             setMensaje(datos.mensaje)
             
 
             setEmail("")
             setPassword("")
+
+            navigate("/")
 
         }catch(error){
             console.error("Error en login: ", error)
