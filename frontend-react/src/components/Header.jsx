@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
+import LogoutIcon from "@mui/icons-material/Logout";
 import SelectorTema from "./SelectorTema";
 import { useNavigate } from "react-router-dom"
 import {useAuth } from "../context/useAuth";
@@ -25,7 +27,12 @@ export default function Header() {
                 <Link to="/docentes">Docentes</Link>
                 <Link to="/materias">Materias</Link>
                 <Link to="/ayuda" className="nav-help" aria-label="Ayuda">❔</Link>
-                <button type="button" color="inherit" variant="outlined" onClick={logout}>Cerrar Sesion</button>
+                <Button type="button" variant="outlined" color="error" startIcon={<LogoutIcon />} onClick={logout}
+                    sx={{ borderRadius: 2, px: 2.5, py: 1, fontWeight: 600, textTransform: "none", "&:hover": {
+                        backgroundColor: "error.main",
+                        color: "error.contrastText",
+                        },
+                    }}>Cerrar sesión</Button>
                 <SelectorTema />
             </nav>
         </header>

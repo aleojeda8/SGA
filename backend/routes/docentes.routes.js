@@ -1,16 +1,16 @@
 const express = require("express");
-const { verificarToken } = require("../middlewares/authMiddleware");
+// const { verificarToken } = require("../middlewares/authMiddleware");
 const { obtenerDocentes, obtenerDocente, registrarDocente, actualizarDocente, eliminarDocente} = require("../controllers/docentes.controller"); 
 const router = express.Router();
 
-router.get("/", verificarToken , obtenerDocentes);
+router.get("/", obtenerDocentes);
 
-router.get("/:dni", verificarToken , obtenerDocente);
+router.get("/:dni", obtenerDocente);
 
-router.post("/", verificarToken, registrarDocente);
+router.post("/", registrarDocente);
 
-router.put("/:dni", verificarToken, actualizarDocente);
+router.put("/:dni", actualizarDocente);
 
-router.delete("/:dni", verificarToken, eliminarDocente);
+router.delete("/:dni", eliminarDocente);
 
 module.exports = router;

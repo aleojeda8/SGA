@@ -41,7 +41,7 @@ export function ListaDocentes({ actualizar, onDocenteCreado, onEditarDocente }) 
             setDocentes(datos)
         } catch(error) {
             console.error("Error de conexión", error)
-            setError("No se pudo cargar la lista de alumnos.")
+            setError("No se pudo cargar la lista de docentes.")
         } finally {
             setCargando(false)
         }

@@ -7,7 +7,7 @@ export function ListaAlumnos({ actualizar, onAlumnoCreado, onEditarAlumno }) {
     const [alumnos, setAlumnos] = useState([])
     const [cargando, setCargando] = useState(true)
     const [error, setError] = useState("")
-    const { token } = useAuth();
+    const { token, usuario } = useAuth();
 
     async function eliminarAlumno(legajo) {
         const confirmar = window.confirm("Seguro que quiere eliminar")
@@ -78,10 +78,13 @@ export function ListaAlumnos({ actualizar, onAlumnoCreado, onEditarAlumno }) {
             <div className="student-list__details">
                 {alumno.legajo} - {alumno.nombre} - {alumno.carrera}
             </div>
-            <div className="student-list__actions">
+            {usuario?.rol === "admin" && (
+                <div className="student-list__actions">
                 <button type="button" onClick={() => onEditarAlumno(alumno)}>Editar</button>
                 <button type="button" onClick={() => eliminarAlumno(alumno.legajo)}>Eliminar</button>
             </div>
+            )}
+            
         </li>)
     )}
     </ul>

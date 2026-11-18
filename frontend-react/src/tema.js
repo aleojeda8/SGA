@@ -1,4 +1,4 @@
-import { createTheme} from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
 
 const tema = createTheme ({
     cssVariables: {
@@ -23,7 +23,7 @@ const tema = createTheme ({
                     primary: "#303841",
                     secondary: "#68737D"
                 },
-                divider: "#414B56"
+                divider: "#D9D3C7"
             }
         },
         dark: {

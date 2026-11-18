@@ -99,6 +99,18 @@ Content-Type: application/json
 }
 
 ###
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "joa@gmail.com",
+    "password": "SuperClave"
+}
+
+###
 
 GET http://localhost:3000/alumnos
-authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhZThjZGE1YmMwYmQ2ZTM2MTgyMzBjNCIsInJvbCI6ImFkbWluIiwiaWF0IjoxNzk0NTA3Njg1LCJleHAiOjE3OTQ1MTEyODV9.F2k8OxYzi_KYRLe1-GM1vWbpCN9eck_VOM0GB9yOwc8
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhZmRlM2U3ZDFjN2M1NmVkZDlkY2MxZCIsInJvbCI6InVzdWFyaW8iLCJpYXQiOjE3OTUwMjQwMDMsImV4cCI6MTc5NTAyNzYwM30.blUgjheYtq7yof-wfYvWn_Nc1VEXD-_15ZcozmUGVOY
+
+###
+PUT http://localhost:3000/alumnos/25

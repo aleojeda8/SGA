@@ -4,7 +4,7 @@ import { AuthContext } from "./AuthContext";
 const AuthProvider = ({ children }) => {
     const [token, setToken] = useState( () => localStorage.getItem("token") || null);
     const [cargando, setCargando] = useState(true);
-
+    const [usuario, setUsuario] = useState(null);
     const cerrarSesion = () => {
         localStorage.removeItem("token");
         setToken(null);
@@ -43,7 +43,7 @@ const AuthProvider = ({ children }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ token, setToken, cerrarSesion, cargando}}>
+        <AuthContext.Provider value={{ token, setToken, cerrarSesion, cargando, usuario, setUsuario}}>
             {children}
         </AuthContext.Provider>
     )
